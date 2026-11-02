@@ -1,0 +1,30 @@
+
+
+int searchInsert(int* nums, int numsSize, int target) {
+    int lo = 0;
+    int hi = numsSize;
+
+    while (lo < hi) {
+        int mid = lo + (hi - lo) / 2;
+
+        if (nums[mid] < target) {
+            lo = mid + 1;
+        } else {
+            hi = mid;
+        }
+    }
+
+    return lo;
+}
+
+int main() {
+    int values[] = {1, 3, 5, 6};
+    int n = sizeof(values) / sizeof(values[0]);
+
+    printf("Target 5: %d\n", searchInsert(values, n, 5));
+    printf("Target 2: %d\n", searchInsert(values, n, 2));
+    printf("Target 0: %d\n", searchInsert(values, n, 0));
+    printf("Target 7: %d\n", searchInsert(values, n, 7));
+
+    return 0;
+}
