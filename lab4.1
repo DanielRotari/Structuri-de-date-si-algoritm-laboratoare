@@ -1,0 +1,120 @@
+
+
+int comparisons = 0;
+
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void printArray(int values[], int n) {
+    printf("[");
+    for (int i = 0; i < n; i++) {
+        printf("%d", values[i]);
+        if (i < n - 1)
+            printf(", ");
+    }
+    printf("]\n");
+}
+
+int partition(int values[], int lo, int hi) {
+    int pivot = values[lo];
+    int boundary = lo;
+
+    printf("\nPivot: %d, interval [%d, %d)\n", pivot, lo, hi);
+
+    for (int scan = lo + 1; scan < hi; scan++) {
+        comparisons++;
+
+        if (values[scan] < pivot) {
+            boundary++;
+            swap(&values[boundary], &values[scan]);
+
+            printf("Swap: ");
+            printArray(values, hi);
+        }
+    }
+
+    swap(&values[lo], &values[boundary]);
+
+    printf("After partition: ");
+    printArray(values, hi);
+
+    printf("Pivot position: %d\n", boundary);
+
+    return boundary;
+}
+
+void quicksort(int values[], int lo, int hi) {
+    if (hi - lo <= 1)
+        return;
+
+    int p = partition(values, lo, hi);
+
+    printf("Recursive interval: [%d, %d)\n", lo, p);
+    quicksort(values, lo, p);
+
+    printf("Recursive interval: [%d, %d)\n", p + 1, hi);
+    quicksort(values, p + 1, hi);
+}
+
+int main() {
+    int values[] = {6, 2, 5, 2, 1};
+    int n = sizeof(values) / sizeof(values[0]);
+
+    printf("Initial array: ");
+    printArray(values, n);
+
+    quicksort(values, 0, n);
+
+    printf("\nSorted array: ");
+    printArray(values, n);
+
+    printf("Total comparisons: %d\n", comparisons);
+
+    return 0;
+}
+
+
+
+
+//Running Sum of 1d Array
+
+
+int* runningSum(int* nums, int numsSize, int* returnSize) {
+    int* result = malloc(numsSize * sizeof(int));
+
+    *returnSize = numsSize;
+
+    if (numsSize == 0)
+        return result;
+
+    result[0] = nums[0];
+
+    for (int i = 1; i < numsSize; i++) {
+        result[i] = result[i - 1] + nums[i];
+    }
+
+    return result;
+}
+
+
+
+
+
+
+
+//Remove Element
+int removeElement(int* nums, int numsSize, int val) {
+    int k = 0;
+
+    for (int i = 0; i < numsSize; i++) {
+        if (nums[i] != val) {
+            nums[k] = nums[i];
+            k++;
+        }
+    }
+
+    return k;
+}
