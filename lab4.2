@@ -1,0 +1,44 @@
+
+//Binary Search
+
+int search(int* nums, int numsSize, int target) {
+    int lo = 0;
+    int hi = numsSize;
+
+    while (lo < hi) {
+        int mid = lo + (hi - lo) / 2;
+
+        printf("lo=%d, hi=%d, mid=%d, value=%d\n",
+               lo, hi, mid, nums[mid]);
+
+        if (nums[mid] == target) {
+            return mid;
+        }
+        else if (nums[mid] < target) {
+            lo = mid + 1;
+        }
+        else {
+            hi = mid;
+        }
+
+        printf("Next interval: [%d, %d)\n", lo, hi);
+    }
+
+    return -1;
+}
+
+int main() {
+    int values[] = {-1, 0, 3, 5, 9, 12};
+    int n = sizeof(values) / sizeof(values[0]);
+
+    int target1 = 9;
+    int target2 = 2;
+
+    printf("\nSearch target 9:\n");
+    printf("Result: %d\n", search(values, n, target1));
+
+    printf("\nSearch target 2:\n");
+    printf("Result: %d\n", search(values, n, target2));
+
+    return 0;
+}
